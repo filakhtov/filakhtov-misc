@@ -1,0 +1,12 @@
+[Unit]
+After=zfs-load-keys.service
+Description=Detach the encryption key drive
+ConditionPathExists=/dev/disk/by-partuuid/%I
+
+[Service]
+Environment=PATH=/usr/sbin:/usr/bin:/sbin:/bin
+Type=oneshot
+ExecStart=/usr/local/sbin/eject-disk.sh %I
+
+[Install]
+WantedBy=multi-user.target

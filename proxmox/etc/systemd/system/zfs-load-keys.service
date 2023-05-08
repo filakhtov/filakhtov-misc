@@ -1,0 +1,9 @@
+[Unit]
+Description=Automatically load ZFS keys for all imported pools
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/zfs load-key -a
+
+[Install]
+WantedBy=multi-user.target
