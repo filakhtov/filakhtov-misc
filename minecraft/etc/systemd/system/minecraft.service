@@ -1,0 +1,27 @@
+[Unit]
+Description=Minecraft Server
+
+[Service]
+WorkingDirectory=/opt/minecraft
+ExecStart=/usr/bin/java -Xmx6G -jar fabric-server-mc.jar nogui
+ExecStop=/bin/bash -c 'echo "save-all flush" > %t/minecraft.socket'
+ExecStop=/bin/bash -c 'echo "stop" > %t/minecraft.socket'
+ExecStop=/bin/bash -c '/usr/bin/lsof -p $MAINPID +r 1 > /dev/null'
+
+User=minecraft
+Group=minecraft
+
+PrivateUsers=true
+ProtectSystem=full
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+Sockets=minecraft.socket
+StandardInput=socket
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
