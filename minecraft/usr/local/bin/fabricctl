@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -e
+
+follow=false
+if [ "$1" == "-f" ]; then
+  follow=true
+  shift
+fi
+
+if [ "$#" -gt 0 ]; then
+  echo "$@" > "/run/minecraft/minecraft.socket"
+fi
+
+if $follow; then
+  journalctl --no-pager -n 50 -f -u minecraft.service
+else
+  journalctl --no-pager -n 50 -u minecraft.service
+fi

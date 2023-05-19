@@ -2,5 +2,9 @@
 PartOf=minecraft.service
 
 [Socket]
-ListenFIFO=%t/minecraft.socket
+ListenFIFO=%t/minecraft/minecraft.socket
 Service=minecraft.service
+RemoveOnStop=true
+SocketUser=minecraft
+SocketGroup=minecraft
+SocketMode=0660
