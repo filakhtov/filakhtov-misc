@@ -3,7 +3,7 @@ Description=Minecraft Server
 
 [Service]
 WorkingDirectory=/opt/minecraft
-ExecStart=/usr/bin/java -Xmx6G -jar fabric-server-mc.jar nogui
+ExecStart=/usr/bin/java -Xmx10G -XX:+UseZGC -XX:AllocatePrefetchStyle=1 -XX:-ZProactive -XX:+UseTransparentHugePages -jar fabric-server-mc.jar nogui
 ExecStop=/bin/bash -c 'echo "save-all flush" > %t/minecraft/minecraft.socket'
 ExecStop=/bin/bash -c 'echo "stop" > %t/minecraft/minecraft.socket'
 ExecStop=/bin/bash -c '/usr/bin/lsof -p $MAINPID +r 1 > /dev/null'
